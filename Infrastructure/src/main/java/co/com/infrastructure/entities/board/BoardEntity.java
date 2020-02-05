@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import java.util.Date;
 
 @Entity
-public class InfBoard {
+public class BoardEntity {
 
     @EmbeddedId
     private InfBoardId infBoardId;
@@ -23,10 +23,10 @@ public class InfBoard {
     @Column
     private String cardId;
 
-    public InfBoard() {
+    public BoardEntity() {
     }
 
-    public InfBoard(InfBoardId infBoardId, String name, String description, Date creationDate, Date modificationDate, String cardId) {
+    public BoardEntity(InfBoardId infBoardId, String name, String description, Date creationDate, Date modificationDate, String cardId) {
         this.infBoardId = infBoardId;
         this.name = name;
         this.description = description;

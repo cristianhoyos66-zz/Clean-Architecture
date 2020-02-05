@@ -1,19 +1,19 @@
 package co.com.domain.usecases.board;
 
-import co.com.domain.adapters.board.BoardAdapter;
+import co.com.domain.adapters.board.BoardGateway;
 import co.com.domain.entities.board.Board;
 import co.com.domain.valueobjects.board.BoardId;
 
 public class BoardUseCase {
 
-    private BoardAdapter boardAdapter;
+    private BoardGateway boardGateway;
 
-    public BoardUseCase(BoardAdapter boardAdapter) {
-        this.boardAdapter = boardAdapter;
+    public BoardUseCase(BoardGateway boardGateway) {
+        this.boardGateway = boardGateway;
     }
 
     public Board getBoardById(BoardId boardId) {
-        return boardAdapter.getBoardById(boardId);
+        return boardGateway.getBoardById(boardId);
     }
 
 }

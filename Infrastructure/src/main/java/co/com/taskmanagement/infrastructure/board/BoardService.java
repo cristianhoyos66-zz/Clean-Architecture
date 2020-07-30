@@ -1,23 +1,28 @@
 package co.com.taskmanagement.infrastructure.board;
 
 
-import co.com.taskmanagement.domain.board.BoardPort;
 import co.com.taskmanagement.domain.board.Board;
-import co.com.taskmanagement.domain.board.BoardId;
+import co.com.taskmanagement.domain.board.BoardOutputPort;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class BoardService implements BoardPort {
+public class BoardService implements BoardOutputPort {
 
   private final BoardRepository boardRepository;
   private final BoardAdapter boardAdapter;
 
   @Override
-  public Board getBoardById(BoardId boardId) {
-    BoardEntity boardEntity = boardRepository.findById(BoardIdEntity.of(boardId.getId())).orElse(null);
+  public Board getBoardById(Long boardId) {
+    BoardEntity boardEntity = boardRepository.findById(boardId).orElse(BoardEntity.builder().build());
     return boardAdapter.boardEntityToBoard(boardEntity);
+  }
+
+  @Override
+  public Board createBoard(Board board) {
+    BoardEntity boardEntityToSave = boardAdapter.boardToBoardEntity(board);
+    BoardEntity savedBoardEntity = boardRepository.save(boardEntityToSave);
+    return boardAdapter.boardEntityToBoard(savedBoardEntity);
   }
 }
